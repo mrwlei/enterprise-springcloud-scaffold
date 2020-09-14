@@ -3,6 +3,7 @@ package com.scaffold.sample.client.service;
 import com.scaffold.sample.client.feign.SampleFeignConfig;
 import com.scaffold.sample.client.model.param.PageParam;
 import com.scaffold.sample.client.model.result.UserInfoDTO;
+import com.scaffold.sample.client.service.hystrix.SampleFeignServiceHystrix;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,7 +17,7 @@ import java.util.List;
  * @author leiwa
  */
 @FeignClient(url="${sample.server.url}",name = "sample-server",path = "sample-path",
-            configuration = SampleFeignConfig.class,primary = false)
+            configuration = SampleFeignConfig.class,primary = false,fallbackFactory = SampleFeignServiceHystrix.class)
 public interface ISampleFeignService {
 
     /**
